@@ -26,47 +26,59 @@
     </category>
 
 # start mismatching
-<category>
-<pattern>*</pattern>
-<template>
-<random>
-<li>What was that?</li>
-<li>I don’t understand</li>
-<li>Can you say that more clearly?</li>
-</random>
-</template>
-</category>
+    <category>
+        <pattern>*</pattern>
+        <template>
+            <random>
+                <li>What was that?</li>
+                <li>I don’t understand</li>
+                <li>Can you say that more clearly?</li>
+            </random>
+        </template>
+    </category>
 # end mismatching  
 
 # start who are you
   <category>
     <pattern>WHO ARE YOU</pattern>
-    <template>I am a bot.<br/> I live in a computer.
-    </template>
+    <template>I am a bot.<br/> I live in a computer.</template>
   </category>
 # end who are you 
 
-<category>
-    <pattern>HELP</pattern>
-    <template>Here's my functionalities:<br/>
-    <button>
-        <text>Retrive an employee information</text>
-        <postback>1info</postback>
-    </button>
-    <button>
-        <text>Retrive information about all employees</text>
-        <postback>Ninfo</postback>
-    </button>
-    <button>
-        <text>Create employee</text>
-        <postback>Cinfo</postback>
-    </button>
-    <button>
-        <text>Remove employee</text>
-        <postback>Rinfo</postback>
-    </button>
-    </template>
-</category>
+# start HELP
+    <category>
+        <pattern>HELP</pattern>
+        <template>Here's my functionalities:<br/>
+        <button>
+            <text>Retrive an employee information</text>
+            <postback>1info</postback>
+        </button>
+        <button>
+            <text>Retrive information about all employees</text>
+            <postback>Ninfo</postback>
+        </button>
+        <condition name = "auth">
+            <li value="ok">
+            <button>
+                <text>Create employee</text>
+                <postback>Cinfo</postback>
+            </button>
+            <button>
+                <text>Remove employee</text>
+                <postback>Rinfo</postback>
+            </button>
+            </li>
+            <li>
+                <button>
+                    <text>Login</text>
+                    <postback>LOGIN</postback>
+                </button>
+            </li>
+        </condition>
+        If you think that you miss some functionality try to login.
+        </template>
+    </category>
+# end HELP
 
 # ausiliari category to display help message
   <category>
@@ -89,11 +101,11 @@
   <category>
     <pattern>HELLO ^</pattern>
     <template>
-    <random>
-    <li>Hello my friend. <srai>HH</srai></li>
-    <li>Hi! <srai>HH</srai></li>
-    <li>Nice to see you! <srai>HH</srai></li>
-    </random>
+        <random>
+            <li>Hello my friend. <srai>HH</srai></li>
+            <li>Hi! <srai>HH</srai></li>
+            <li>Nice to see you! <srai>HH</srai></li>
+        </random>
     </template>
   </category>
 
@@ -101,49 +113,22 @@
 <category><pattern>GOODMORNING ^</pattern><template><srai>HELLO ^</srai></template></category>
 # end greetings
 
-
-  <category>
-    <pattern>MY NAME IS *</pattern>
-    <template>
-    Nice to meet you <set name = "name"><star /></set>
-    </template>
-  </category>
-
-<category><pattern>I AM *</pattern><template><srai>MY NAME IS <set name = "name"><star /></set></srai></template></category>
-
-  <category>
-    <pattern>MY NAME IS * AND I HAVE * YEARS</pattern>
-    <template>
-    The <star index = "2"/> is the best and nice to meet you <star/>
-    </template>
-  </category>
-  
-  
-  <category>
-      <pattern>AIA</pattern>
+#start 1info
+    <category>
+      <pattern>1info</pattern>
       <template>
-        <carousel>
-            <card>
-              <image></image>
-              <title>Marco Rossi</title>
-              <subtitle>Consulente</subtitle>
-              <button>
+        <card>
+          <image></image>
+          <title>Marco Rossi</title>
+          <subtitle>Consulente</subtitle>
+          <button>
               <text>Data di assunzione</text>
               <postback>hh</postback>
           </button>
         </card>
-        <card>
-          <image></image>
-          <title>Giuseppe Bianchi</title>
-          <subtitle>Consulente</subtitle>
-          <button>
-          <text>Data di assunzione</text>
-          <postback>hh</postback>
-          </button>
-        </card>
-        </carousel>
-      </template>
-  </category>
+        </template>
+    </category>
+# end 1info
   
 
 <category>
@@ -153,13 +138,19 @@
 
 <category>
     <pattern>123456</pattern>
-    <template>Welcome <bot name = "HRMan" /></template>
+    <template>
+        <think><set name = "auth">ok</set></think>
+        Welcome <bot name = "HRMan" />
+    </template><get name="auth"/>
 </category>
 
 # start exit
 <category>
     <pattern>EXIT</pattern>
-    <template>Ok, I will leave you alone <get name="name" />. <br/>Say something and I will be back</template>
+    <template>
+        <think><set name = "auth">ko</set></think>
+        Ok, I will leave you alone <get name="name" />. <br/>Say something and I will be back
+    </template>
 </category>
 
 <category><pattern>I WANNA LEAVE</pattern><template><srai>EXIT</srai></template></category>
@@ -167,6 +158,5 @@
 <category><pattern>BYE BYE</pattern><template><srai>EXIT</srai></template></category>
 <category><pattern>SEE YOU</pattern><template><srai>EXIT</srai></template></category>
 # end exit
-
 
 </aiml>
