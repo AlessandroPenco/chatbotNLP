@@ -68,7 +68,7 @@
                 <postback>Rinfo</postback>
             </button>
             </li>
-            <li>
+            <li value="ko">
                 <button>
                     <text>Login</text>
                     <postback>LOGIN</postback>
