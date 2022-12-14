@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-    
     <category>
         <pattern>
             links
@@ -29,11 +28,20 @@
     <category>
         <pattern>*</pattern>
         <template>
-            <random>
-                <li>What was that?</li>
-                <li>I don’t understand</li>
-                <li>Can you say that more clearly?</li>
-            </random>
+            <condition name = "login">
+                <li value = "try">
+                    I do not recognize the code.
+                    <think><set name = "login">notry</set></think>
+                </li>
+                <li value = "notry">
+                    <random>
+                        <li>What was that?</li>
+                        <li>I don’t understand</li>
+                        <li>Can you say that more clearly?</li>
+                    </random>
+                </li>
+            </condition>
+            
         </template>
     </category>
 # end mismatching  
@@ -67,18 +75,26 @@
                 <text>Remove employee</text>
                 <postback>Rinfo</postback>
             </button>
+            <button>
+                <text>Logout</text>
+                <postback>LOGOUT</postback>
+            </button>
             </li>
             <li value="ko">
                 <button>
-                    <text>Login</text>
+                    <text>Login to more functionalities</text>
                     <postback>LOGIN</postback>
                 </button>
             </li>
         </condition>
-        If you think that you miss some functionality try to login.
         </template>
     </category>
 # end HELP
+
+<category><pattern>FUNCTIONALITIES</pattern><template><srai>HELP</srai></template></category>
+<category><pattern>WHAT CAN YOU DO</pattern><template><srai>HELP</srai></template></category>
+<category><pattern>WHAT CAN I ASK TO YOU</pattern><template><srai>HELP</srai></template></category>
+
 
 # ausiliari category to display help message
   <category>
@@ -101,6 +117,7 @@
   <category>
     <pattern>HELLO ^</pattern>
     <template>
+        <think><set name = "auth">ko</set></think>
         <random>
             <li>Hello my friend. <srai>HH</srai></li>
             <li>Hi! <srai>HH</srai></li>
@@ -133,23 +150,49 @@
 
 <category>
     <pattern>LOGIN</pattern>
-    <template>Enter THE secret code:</template>
+    <template>
+        <think><set name = "login">try</set></think>
+        Enter THE secret code: 
+    </template>
 </category>
+
+<category><pattern>LOGIN TO MORE FUNCTIONALITIES</pattern><template><srai>LOGIN</srai></template></category>
+
 
 <category>
     <pattern>123456</pattern>
     <template>
-        <think><set name = "auth">ok</set></think>
-        Welcome <bot name = "HRMan" />
-    </template><get name="auth"/>
+        <condition name = "login">
+            <li value = "try">
+                <think><set name = "auth">ok</set></think>
+                Welcome <bot name = "HRMan_123456" />
+                <think><set name = "login">notry</set></think>
+            </li>
+            <li value = "notry">
+                <srai>*</srai>
+            </li>
+        </condition>
+    </template>
 </category>
+
+
+#start logout
+<category>
+    <pattern>LOGOUT</pattern>
+    <template>
+        <think><set name = "auth">ko</set></think>
+        Successfully logged out!</template>
+</category>
+#end logout
 
 # start exit
 <category>
     <pattern>EXIT</pattern>
     <template>
-        <think><set name = "auth">ko</set></think>
         Ok, I will leave you alone <get name="name" />. <br/>Say something and I will be back
+        <think><set name = "auth">ko</set></think>
+        <think><set name = "login">notry</set></think>
+        <think><set name = "name">utente</set></think>
     </template>
 </category>
 
