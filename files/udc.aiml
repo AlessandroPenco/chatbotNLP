@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-->
+
+# add other maps and sets for retrive employees with only name, only surname, onli role
+# the single retrive go with code only
+# complete the retrive all
+# complete the add?
+
+</!-->
+
 <aiml>
     <category>
         <pattern>
@@ -133,17 +143,31 @@
 #start 1info
     <category>
       <pattern>1info</pattern>
+      <template>Insert the name or surname or role that want to retrieve</template>
+    </category>
+    
+    <category>
+      <pattern><set>name</set></pattern>
+      <that>Insert the name or surname or role that want to retrieve</that>
       <template>
         <card>
           <image></image>
-          <title>Marco Rossi</title>
-          <subtitle>Consulente</subtitle>
+          <title><star/></title>
+          <subtitle><map name="namesurname2role"><star/></map></subtitle>
           <button>
               <text>Data di assunzione</text>
               <postback>hh</postback>
           </button>
         </card>
         </template>
+    </category>
+    
+    <category>
+      <pattern>*</pattern>
+      <that>Insert the name or surname or role that want to retrieve</that>
+      <template>
+          I can not retrive any employee.
+      </template>
     </category>
 # end 1info
   
