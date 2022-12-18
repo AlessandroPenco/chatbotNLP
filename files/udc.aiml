@@ -2,8 +2,8 @@
 
 <!-->
 
-# add other maps and sets for retrive employees with only name, only surname, onli role
-# the single retrive go with code only
+# add other maps and sets for retrive employees with only name, only surname, only role
+# the single retrive go with code only -> ok
 # complete the retrive all
 # complete the add?
 
@@ -106,7 +106,7 @@
 <category><pattern>WHAT CAN I ASK TO YOU</pattern><template><srai>HELP</srai></template></category>
 
 
-# ausiliari category to display help message
+# ausiliary category to display help message
   <category>
       <pattern>HH</pattern>
       <template>
@@ -140,37 +140,87 @@
 <category><pattern>GOODMORNING ^</pattern><template><srai>HELLO ^</srai></template></category>
 # end greetings
 
-#start 1info
+# start 1info
     <category>
       <pattern>1info</pattern>
-      <template>Insert the name or surname or role that want to retrieve</template>
+      <template>Insert the number of the employee that you want to retrieve</template>
     </category>
     
     <category>
-      <pattern><set>name</set></pattern>
-      <that>Insert the name or surname or role that want to retrieve</that>
-      <template>
-        <card>
-          <image></image>
-          <title><star/></title>
-          <subtitle><map name="namesurname2role"><star/></map></subtitle>
-          <button>
-              <text>Data di assunzione</text>
-              <postback>hh</postback>
-          </button>
-        </card>
+        <pattern><set>number</set></pattern>
+        <that>Insert the number of the employee that you want to retrieve</that>
+        <template>
+            <card>
+              <image></image>
+              <title><map name="number2name"><star/></map></title>
+              <subtitle><map name="name2role"><map name="number2name"><star/></map></map></subtitle>
+              <button>
+                  <text>date of recruitment</text>
+                  <postback>hh</postback>
+              </button>
+            </card>
         </template>
     </category>
     
     <category>
       <pattern>*</pattern>
-      <that>Insert the name or surname or role that want to retrieve</that>
+      <that>Insert the number of the employee that you want to retrieve</that>
       <template>
           I can not retrive any employee.
       </template>
     </category>
 # end 1info
   
+  
+# start Ninfo
+
+    <category>
+      <pattern>Ninfo</pattern>
+        <template>
+        <think ><set name="count">0</set></think>
+        <condition name = "count">
+            <li>
+                <value><bot name = "n_employees" /></value>
+            </li>
+            <li>
+                <map name="number2name"><map name="seq2code"><get name = "count"></get></map></map>
+                <br/>
+                <map name="name2role"><map name="number2name"><map name="seq2code"><get name = "count"></get></map></map></map>
+                <!--
+                <card>
+                    <image></image>
+                    <title></title>
+                    <subtitle></subtitle>
+                    <button>
+                        <text></text>
+                        <postback></postback>
+                    </button>
+                </card>
+                -->
+                <button>
+                  <text>Date of recruitment</text>
+                  <postback>hh</postback>
+                </button>
+                <think>
+                    <set name="count"><map><name>successor</name><get name="count"></get></map></set>
+                </think>
+                <split/>
+            <loop/>
+            </li>
+        </condition>
+        </template>
+    </category>
+    
+    <category>
+      <pattern>*</pattern>
+      <that>Insert the number of the employee that you want to retrieve</that>
+      <template>
+          I can not retrive any employee.
+      </template>
+    </category>
+
+# end Ninfo
+
 
 <category>
     <pattern>LOGIN</pattern>
@@ -205,7 +255,8 @@
     <pattern>LOGOUT</pattern>
     <template>
         <think><set name = "auth">ko</set></think>
-        Successfully logged out!</template>
+        Successfully logged out!
+    </template>
 </category>
 #end logout
 
