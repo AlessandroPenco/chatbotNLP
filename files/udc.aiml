@@ -7,6 +7,8 @@
 # complete the retrive all
 # complete the add?
 
+in report add the "try using the card..." part
+
 </!-->
 
 <aiml>
@@ -150,15 +152,11 @@
         <pattern><set>number</set></pattern>
         <that>Insert the number of the employee that you want to retrieve</that>
         <template>
-            <card>
-              <image></image>
-              <title><map name="number2name"><star/></map></title>
-              <subtitle><map name="name2role"><map name="number2name"><star/></map></map></subtitle>
-              <button>
-                  <text>date of recruitment</text>
-                  <postback>hh</postback>
-              </button>
-            </card>
+          <b>Name:</b> <map name="number2name"><star/></map>
+          <br/>
+          <b>Role:</b> <map name="name2role"><map name="number2name"><star/></map></map>
+          <br/>
+          <b>Date of recruitment:</b> <map name="number2date"><map name="seq2number"><get name = "count"></get></map></map>
         </template>
     </category>
     
@@ -183,11 +181,11 @@
                 <value><bot name = "n_employees" /></value>
             </li>
             <li>
-                <map name="number2name"><map name="seq2code"><get name = "count"></get></map></map>
+                <b>Name:</b><map name="number2name"><map name="seq2number"><get name = "count"></get></map></map>
                 <br/>
-                <map name="name2role"><map name="number2name"><map name="seq2code"><get name = "count"></get></map></map></map>
+                <b>Role:</b><map name="name2role"><map name="number2name"><map name="seq2number"><get name = "count"></get></map></map></map>
                 <!--
-                <card>
+                <card> card do not work
                     <image></image>
                     <title></title>
                     <subtitle></subtitle>
@@ -197,10 +195,8 @@
                     </button>
                 </card>
                 -->
-                <button>
-                  <text>Date of recruitment</text>
-                  <postback>hh</postback>
-                </button>
+                <br/>
+                <b>Date of recruitment:</b> <map name="number2date"><map name="seq2number"><get name = "count"></get></map></map>
                 <think>
                     <set name="count"><map><name>successor</name><get name="count"></get></map></set>
                 </think>
@@ -210,17 +206,8 @@
         </condition>
         </template>
     </category>
-    
-    <category>
-      <pattern>*</pattern>
-      <that>Insert the number of the employee that you want to retrieve</that>
-      <template>
-          I can not retrive any employee.
-      </template>
-    </category>
 
 # end Ninfo
-
 
 <category>
     <pattern>LOGIN</pattern>
