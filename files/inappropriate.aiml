@@ -19,6 +19,9 @@
 <!-- http://www.pandorabots.com -->
 <!--  http://www.alicebot.org -->
 <!--  -->
+<category><pattern>FILTER INAPPROPRIATE</pattern>
+<template>This is an inappropriate use of this chatbot. If you continue we could contact your manager.</template>
+</category>
 
 <category><pattern># DO YOU WANT TO HAVE SEX #</pattern>
 <template><srai>FILTER INAPPROPRIATE</srai></template>

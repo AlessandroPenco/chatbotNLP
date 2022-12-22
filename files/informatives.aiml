@@ -3,13 +3,23 @@
 	# start 1info
     <category>
       <pattern>1info</pattern>
-      <template>Insert the number of the employee that you want to retrieve</template>
+      <template>
+          <think>
+	            <set name = "topic">1info</set>
+	        </think>
+          Insert the code of the employee that you want to retrieve
+      </template>
     </category>
     
+    <topic name="1info">
     <category>
-        <pattern><set>number</set></pattern>
-        <that>Insert the number of the employee that you want to retrieve</that>
+        <pattern>
+            <set>code</set>
+        </pattern>
         <template>
+        <think>
+            <set name = "topic">*</set>
+        </think>
           <b>Name:</b> <map name="number2name"><star/></map>
           <br/>
           <b>Role:</b> <map name="name2role"><map name="number2name"><star/></map></map>
@@ -20,20 +30,37 @@
     
     <category>
       <pattern>*</pattern>
-      <that>Insert the number of the employee that you want to retrieve</that>
+      <that>Insert the code of the employee that you want to retrieve</that>
       <template>
           I can not retrive any employee.
+          <think>
+            <set name = "topic">*</set>
+        </think>
       </template>
     </category>
+    </topic>
 # end 1info
   
   
 # start Ninfo
-
     <category>
-      <pattern>Ninfo</pattern>
+        <pattern>Ninfo</pattern>
         <template>
-        <think ><set name="count">0</set></think>
+            <think>
+                <set name = "topic">Ninfo</set>
+            </think>
+            <srai>DisplayNinfo</srai>
+        </template>
+    </category>
+
+    <topic name="Ninfo">
+    <category>
+      <pattern>DisplayNinfo</pattern>
+        <template>
+        <think >
+            <set name="count">0</set>
+	        <set name = "topic">*</set>
+        </think>
         <condition name = "count">
             <li>
                 <value><bot name = "n_employees" /></value>
@@ -42,28 +69,26 @@
                 <b>Name:</b><map name="number2name"><map name="seq2number"><get name = "count"></get></map></map>
                 <br/>
                 <b>Role:</b><map name="name2role"><map name="number2name"><map name="seq2number"><get name = "count"></get></map></map></map>
-                <!--
-                <card> card do not work
-                    <image></image>
-                    <title></title>
-                    <subtitle></subtitle>
-                    <button>
-                        <text></text>
-                        <postback></postback>
-                    </button>
-                </card>
-                -->
+                <!--<card> card do not work<image></image><title></title><subtitle></subtitle><button><text></text><postback></postback></button></card>-->
                 <br/>
                 <b>Date of recruitment:</b> <map name="number2date"><map name="seq2number"><get name = "count"></get></map></map>
                 <think>
                     <set name="count"><map><name>successor</name><get name="count"></get></map></set>
                 </think>
                 <split/>
-            <loop/>
+                <loop/>
+            </li>
+        </condition>
+        <condition name="newCode">
+            <li value="01">
+                <b>Name:</b><get name = "newName"></get> <get name = "newSurname"></get><br/>
+    	        <b>Role:</b><get name = "newRole"></get><br/>
+    	        <b>Date of recruitment:</b> <get name = "newDate"></get><br/>
             </li>
         </condition>
         </template>
     </category>
+    </topic>
 
 # end Ninfo
 </aiml>

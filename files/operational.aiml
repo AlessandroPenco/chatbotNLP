@@ -4,19 +4,98 @@
 # start Cemp -> create employee
 	<category>
 	    <pattern>Cemp</pattern>
-	    <template></template>
+	    <template>
+	        <think>
+	            <set name = "topic">Cemp</set>
+	        </think>
+	        Digit following this pattern:<br/>
+	        NAME SURNAME ROLE<br/>
+	        (1 space only between words).
+	    </template>
     </category>
+    
+    <topic name="Cemp">
+    <category>
+	    <pattern>* * *</pattern>
+	    <that>
+	        
+	    </that>
+	    <template>
+	        <think>
+	            <set name = "newName"><star/></set>
+	            <set name = "newSurname"><star index = "2"/></set>
+	            <set name = "newRole"><star index = "3"/></set>
+	            <set name = "newCode">01</set>
+	            <set name = "newDate"><date format="%d/%m/%Y" jformat="dd/mm/yyyy"/></set>
+	            <set name = "topic">*</set>
+	        </think>
+	        Added this employee:<br/>
+	        <b>Name:</b><get name = "newName"></get><br/>
+	        <b>Surname:</b><get name = "newSurname"></get><br/>
+	        <b>Role:</b><get name = "newRole"></get><br/>
+	        <b>Number:</b><get name = "newCode"></get><br/>
+	        <b>Date of recruitment:</b><get name = "newDate"></get><br/>
+	    </template>
+    </category>
+    </topic>
 # end Cemp
 
 # start Remp -> remove employee
     <category>
         <pattern>Remp</pattern>
-        <template></template>
+        <template>
+            <think>
+	            <set name = "topic">Remp</set>
+	        </think>
+	        Enter the number of the employee that you wish to remove:
+        </template>
     </category>
     
-    <category>
-        <pattern>Remp *</pattern>
-        <template></template>
-    </category>
+    <topic name="Remp">
+        <category>
+            <pattern><set>code</set></pattern>
+            <template>
+                <think>
+                    <set name = "topic">*</set>
+                    <set name = "remCode"><star/></set>
+                </think>
+                We will remove the following employee:<br/>
+                <b>Name:</b><map name = "number2name"><star/></map><br/>
+    	        <b>Role:</b><map name = "name2role"><map name = "number2name"><star/></map></map><br/>
+                (The changes could require several minutes).
+            </template>
+        </category>
+        
+        <category>
+            <pattern><set>number</set></pattern>
+            <template>
+                <think>
+                    <set name = "remCode"><star/></set>
+                </think>
+                <condition name = "remCode">
+                    <li value="01">
+                        We will remove the following employee:<br/>
+                        <b>Name:</b><get name = "newName"></get><br/>
+            	        <b>Surname:</b><get name = "newSurname"></get><br/>
+            	        <b>Role:</b><get name = "newRole"></get><br/>
+                        <think>
+                            <set name = "newName"></set>
+            	            <set name = "newSurname"></set>
+            	            <set name = "newRole"></set>
+            	            <set name = "newCode"></set>
+                        </think>
+                    </li>
+                    <li>
+                        <get name="remCode"></get> 
+                        <get name="newCode"></get>
+                        I can not retrive any employee.
+                    </li>
+                </condition>
+            <think>
+                <set name = "topic">*</set>
+            </think>
+          </template>
+        </category>
+    </topic>
 # end Remp
 </aiml>
