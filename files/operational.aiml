@@ -39,7 +39,7 @@
     </category>
     </topic>
 # end Cemp
-
+    <category><pattern>Create employee</pattern><template><srai>Cemp</srai></template></category>
 # start Remp -> remove employee
     <category>
         <pattern>Remp</pattern>
@@ -97,5 +97,6 @@
           </template>
         </category>
     </topic>
+    <category><pattern>Remove employee</pattern><template><srai>Remp</srai></template></category>
 # end Remp
 </aiml>

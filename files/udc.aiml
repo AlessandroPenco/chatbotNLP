@@ -1,40 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-->
-
-# add other maps and sets for retrive employees with only name, only surname, only role
-# the single retrive go with code only -> ok
-# complete the retrive all
-# complete the add?
-
-in report add the "try using the card..." part
-
-</!-->
-
 <aiml>
-    <category>
-        <pattern>
-            links
-        </pattern>
-        <template>
-            <button>
-                <text>aulaweb</text>
-                <url>https://2022.aulaweb.unige.it/my/</url>
-            </button>
-            <button>
-                <text>overleaf</text>
-                <url>https://www.overleaf.com/project/6385ddb977c6f7bdd63aa9ec</url>
-            </button>
-            <button>
-                <text>pandorabots docs</text>
-                <url>https://pandorabots.com/docs/building-bots/tutorial/</url>
-            </button>  
-            <button>
-                <text>pandorabots yt</text>
-                <url>https://www.youtube.com/@schOOlsin/</url>
-            </button>
-        </template>
-    </category>
 
 # start who are you
   <category>

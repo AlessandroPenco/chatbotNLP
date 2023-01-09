@@ -40,8 +40,9 @@
     </category>
     </topic>
 # end 1info
-  
-  
+  <category><pattern>^ retrive an employee ^</pattern><template><srai>1info</srai></template></category>
+  <category><pattern>^ show ^ an employee ^</pattern><template><srai>1info</srai></template></category>
+  <category><pattern>^ display an employee ^</pattern><template><srai>1info</srai></template></category>
 # start Ninfo
     <category>
         <pattern>Ninfo</pattern>
@@ -69,7 +70,6 @@
                 <b>Name:</b><map name="number2name"><map name="seq2number"><get name = "count"></get></map></map>
                 <br/>
                 <b>Role:</b><map name="name2role"><map name="number2name"><map name="seq2number"><get name = "count"></get></map></map></map>
-                <!--<card> card do not work<image></image><title></title><subtitle></subtitle><button><text></text><postback></postback></button></card>-->
                 <br/>
                 <b>Date of recruitment:</b> <map name="number2date"><map name="seq2number"><get name = "count"></get></map></map>
                 <think>
@@ -91,4 +91,7 @@
     </topic>
 
 # end Ninfo
+    <category><pattern>^ retrive information about all employees^ </pattern><template><srai>Ninfo</srai></template></category>
+    <category><pattern>^ show ^ information about all employees ^</pattern><template><srai>Ninfo</srai></template></category>
+    <category><pattern>^ display information about all employees ^</pattern><template><srai>Ninfo</srai></template></category>
 </aiml>
